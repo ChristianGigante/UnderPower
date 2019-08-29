@@ -39,7 +39,7 @@
                         required="">
                     Address : <input type="text" class="form-control" name="address" placeholder="Address" required="">
                     Email : <input type="email" class="form-control" name="email" placeholder="Email" required=""><br>
-                    <button type="submit" class="btn btn-success save">Save</button>
+                    <button id="btnSave" type="submit" class="btn btn-success save">Save</button>
                     <button type="button" class="btn btn-danger cancel">Cancel</button>
                 </form>
             </div>
@@ -51,91 +51,105 @@
 
     <script>
         $(document).ready(function () {
-            //ClassListToFormView
+
+            //hideForm
             $('.form').hide();
+
+            //ClassListToFormView
             $("button").click(function () {
                 $('.tblClassList').hide();
                 $(".form").show();
             });
+
             //cancelBtn
             $(".cancel").click(function () {
                 $(".form").hide();
                 $('.tblClassList').show();
             });
 
-            var id = 0;
-            var selectedRow = null;
 
-            function resetForm() {
-                $("input[name = 'id']").val("ID Number: " + (id+1));
-                $("input[name = 'name']").val('');
-                $("input[name = 'courseYear']").val('');
-                $("input[name = 'address']").val('');
-                $("input[name = 'email']").val('');
-                $('.form').hide();
-                $('.tblClassList').show();
-            }
-
-
-            $('form').submit(function (e) {
-                e.preventDefault();
-                id++;
-                var ID = $("input[name = 'id']").val();
-                var name = $("input[name = 'name']").val();
-                var courseYear = $("input[name = 'courseYear']").val();
-                var address = $("input[name = 'address']").val();
-                var email = $("input[name = 'email']").val();
-
-                selectedRow = $('tbody').append(
-                    "<tr d-id = '" + id + "' d-name = '" + name + "' d-courseYear = '" +
-                    courseYear + "' d-address = '" + address + "' d-email = '" + email + "'>" +
-                    "<td>" + id + "</td>" +
-                    "<td>" + name + "</td>" +
-                    "<td>" + courseYear + "</td>" +
-                    "<td><button class='btn btn-info btn-edit'>Update</button><button class='btn btn-danger btn-delete'>Delete</button></td>" +
-                    "</tr>"
-                )
-
-
-                resetForm();
-
-            })
-
-
-            //showBtn
-            $('body').on("hover", "tr", function () {
-                $('button').show();
+            //saveBtn
+            $('form').on('click', '#btnSave', function () {
+                var id = 0;
+                console.log($("input[name = 'id']").val("ID Number: " + (id)));
+                
             });
 
 
-            //removeTR
-            $("body").on("click", ".btn-delete", function () {
-                $(this).parents("tr").remove();
-            });
+            // var selectedRow = null;
 
-            //editTR
-            $("body").on("click", ".btn-edit", function () {
-                $('.tblClassList').hide();
-                $(".form").show();
-                $(this).parents('tr').remove();
-                // console.log($(this).parents("tr"))
-                // currentRow = null;
+            // function resetForm() {
+            //     $("input[name = 'id']").val("ID Number: " + (id));
+            //     $("input[name = 'name']").val('');
+            //     $("input[name = 'courseYear']").val('');
+            //     $("input[name = 'address']").val('');
+            //     $("input[name = 'email']").val('');
+            //     $('.form').hide();
+            //     $('.tblClassList').show();
+            // }
 
-                // var id = $(this).parents("tr").attr('d-id');
-                // $("input[name = 'id']").val(id);
-                var name = $(this).parents("tr").attr('d-name');
-                var courseYear = $(this).parents("tr").attr('d-courseYear');
-                var address = $(this).parents("tr").attr('d-address');
-                var email = $(this).parents("tr").attr('d-email');
+            //     var id = 0;
+            // $('form').submit(function (e) {
+            //     e.preventDefault();
 
-                $("input[name = 'name']").val(name);
-                $("input[name = 'courseYear']").val(courseYear);
-                $("input[name = 'address']").val(address);
-                $("input[name = 'email']").val(email);
+            //     id++;
+            //     var ID = $("input[name = 'id']").val();
+            //     var name = $("input[name = 'name']").val();
+            //     var courseYear = $("input[name = 'courseYear']").val();
+            //     var address = $("input[name = 'address']").val();
+            //     var email = $("input[name = 'email']").val();
+
+            //     selectedRow = $('tbody').append(
+            //         "<tr d-id = '" + id + "' d-name = '" + name + "' d-courseYear = '" +
+            //         courseYear + "' d-address = '" + address + "' d-email = '" + email + "'>" +
+            //         "<td>" + id + "</td>" +
+            //         "<td>" + name + "</td>" +
+            //         "<td>" + courseYear + "</td>" +
+            //         "<td><button class='btn btn-info btn-edit'>Update</button><button class='btn btn-danger btn-delete'>Delete</button></td>" +
+            //         "</tr>"
+            //     )
+
+
+            //     resetForm();
+
+            // })
+
+
+            // //showBtn
+            // $('body').on("hover", "tr", function () {
+            //     $('button').show();
+            // });
+
+
+            // //removeTR
+            // $("body").on("click", ".btn-delete", function () {
+            //     $(this).parents("tr").remove();
+            // });
+
+            // //editTR
+            // $("body").on("click", ".btn-edit", function () {
+            //     $('.tblClassList').hide();
+            //     $(".form").show();
+            //     $(this).parents('tr').remove();
+            //     // console.log($(this).parents("tr"))
+            //     // currentRow = null;
+
+            //     var id = $(this).parents("tr").attr('d-id');
+
+            //     var name = $(this).parents("tr").attr('d-name');
+            //     var courseYear = $(this).parents("tr").attr('d-courseYear');
+            //     var address = $(this).parents("tr").attr('d-address');
+            //     var email = $(this).parents("tr").attr('d-email');
+
+            //     $("input[name = 'id']").val("ID Number: " + (id));
+            //     $("input[name = 'name']").val(name);
+            //     $("input[name = 'courseYear']").val(courseYear);
+            //     $("input[name = 'address']").val(address);
+            //     $("input[name = 'email']").val(email);
 
 
 
-            });
+            // });
 
 
 
