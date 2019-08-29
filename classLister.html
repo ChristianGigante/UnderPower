@@ -71,7 +71,11 @@
             //saveBtn
             $('form').on('click', '#btnSave', function () {
                 var id = 0;
-                console.log($("input[name = 'id']").val("ID Number: " + (id)));
+                var ID = $("input[name = 'id']").val();
+                if(ID == id){
+                    
+                }
+
                 
             });
 
