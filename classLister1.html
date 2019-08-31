@@ -15,12 +15,10 @@
         <button type="button" class="btn btn-success btn-lg" style="float:right;margin:10px;">Create Student</button>
         <table class="table table-hover data-table">
             <thead class="thead-light">
-                <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Course And Year</th>
                     <th>Action</th>
-                </tr>
             </thead>
             <tbody>
             </tbody>
@@ -71,21 +69,17 @@
             var selectedRow = null;
 
             function resetForm() {
-                $("input[name = 'id']").val("ID Number: " + (id));
-                $("input[name = 'name']").val('');
-                $("input[name = 'courseYear']").val('');
-                $("input[name = 'address']").val('');
-                $("input[name = 'email']").val('');
+                $('input').val(null);
                 $('.form').hide();
                 $('.tblClassList').show();
             }
 
-                var id = 0;
+                var id = 1;
             $('form').submit(function (e) {
                 e.preventDefault();
 
-                id++;
-                var ID = $("input[name = 'id']").val();
+                var ID = $(this).parents("tr").attr('d-id');
+                // var ID = $("input[name = 'id']").val();
                 var name = $("input[name = 'name']").val();
                 var courseYear = $("input[name = 'courseYear']").val();
                 var address = $("input[name = 'address']").val();
@@ -97,20 +91,21 @@
                     "<td>" + id + "</td>" +
                     "<td>" + name + "</td>" +
                     "<td>" + courseYear + "</td>" +
-                    "<td><button class='btn btn-info btn-edit'>Update</button><button class='btn btn-danger btn-delete'>Delete</button></td>" +
+                    "<td><button  class='btn btn-info btn-edit'>Update</button><button class='btn btn-danger btn-delete'>Delete</button></td>" +
                     "</tr>"
                 )
 
 
                 resetForm();
-
+                id++;
+                $("input[name = 'id']").val("ID Number: " + (id));
             })
 
 
-            //showBtn
-            $('body').on("hover", "tr", function () {
-                $('button').show();
-            });
+            // //showBtn
+            // $('table').on("click", "tr", function () {
+            //     $('#action').attr('hidden',false);
+            // });
 
 
             //removeTR
@@ -127,7 +122,6 @@
                 // currentRow = null;
 
                 var id = $(this).parents("tr").attr('d-id');
-
                 var name = $(this).parents("tr").attr('d-name');
                 var courseYear = $(this).parents("tr").attr('d-courseYear');
                 var address = $(this).parents("tr").attr('d-address');

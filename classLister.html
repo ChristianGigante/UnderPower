@@ -12,7 +12,7 @@
 <body>
     <div class="container tblClassList">
         <h1>Class List</h1>
-        <button type="button" class="btn btn-success btn-lg" style="float:right;margin:10px;">Create Student</button>
+        <button id="btnCreateStudent" type="button" class="btn btn-success btn-lg" style="float:right;margin:10px;">Create Student</button>
         <table class="table table-hover data-table">
             <thead class="thead-light">
                 <tr>
@@ -48,7 +48,18 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        //saveFunction
+        function save(param) {
+            if (param == 0) {
+                console.log("0")
+            }
 
+            else {
+                console.log("1")
+            }
+        }
+    </script>
     <script>
         $(document).ready(function () {
 
@@ -67,95 +78,29 @@
                 $('.tblClassList').show();
             });
 
+            function save(params) {
+                if(params == 1){
+
+                }
+                else{
+
+                }
+            }
 
             //saveBtn
-            $('form').on('click', '#btnSave', function () {
-                var id = 0;
-                var ID = $("input[name = 'id']").val();
-                if(ID == id){
-                    
-                }
+        $('form').on('click', '#btnSave', function(){
+            addRow();
+        });
 
-                
+            //createStudent
+            $('body').on('click', '#btnCreateStudent', function () {
+                save(0);
             });
 
-
-            // var selectedRow = null;
-
-            // function resetForm() {
-            //     $("input[name = 'id']").val("ID Number: " + (id));
-            //     $("input[name = 'name']").val('');
-            //     $("input[name = 'courseYear']").val('');
-            //     $("input[name = 'address']").val('');
-            //     $("input[name = 'email']").val('');
-            //     $('.form').hide();
-            //     $('.tblClassList').show();
-            // }
-
-            //     var id = 0;
-            // $('form').submit(function (e) {
-            //     e.preventDefault();
-
-            //     id++;
-            //     var ID = $("input[name = 'id']").val();
-            //     var name = $("input[name = 'name']").val();
-            //     var courseYear = $("input[name = 'courseYear']").val();
-            //     var address = $("input[name = 'address']").val();
-            //     var email = $("input[name = 'email']").val();
-
-            //     selectedRow = $('tbody').append(
-            //         "<tr d-id = '" + id + "' d-name = '" + name + "' d-courseYear = '" +
-            //         courseYear + "' d-address = '" + address + "' d-email = '" + email + "'>" +
-            //         "<td>" + id + "</td>" +
-            //         "<td>" + name + "</td>" +
-            //         "<td>" + courseYear + "</td>" +
-            //         "<td><button class='btn btn-info btn-edit'>Update</button><button class='btn btn-danger btn-delete'>Delete</button></td>" +
-            //         "</tr>"
-            //     )
-
-
-            //     resetForm();
-
-            // })
-
-
-            // //showBtn
-            // $('body').on("hover", "tr", function () {
-            //     $('button').show();
-            // });
-
-
-            // //removeTR
-            // $("body").on("click", ".btn-delete", function () {
-            //     $(this).parents("tr").remove();
-            // });
-
-            // //editTR
-            // $("body").on("click", ".btn-edit", function () {
-            //     $('.tblClassList').hide();
-            //     $(".form").show();
-            //     $(this).parents('tr').remove();
-            //     // console.log($(this).parents("tr"))
-            //     // currentRow = null;
-
-            //     var id = $(this).parents("tr").attr('d-id');
-
-            //     var name = $(this).parents("tr").attr('d-name');
-            //     var courseYear = $(this).parents("tr").attr('d-courseYear');
-            //     var address = $(this).parents("tr").attr('d-address');
-            //     var email = $(this).parents("tr").attr('d-email');
-
-            //     $("input[name = 'id']").val("ID Number: " + (id));
-            //     $("input[name = 'name']").val(name);
-            //     $("input[name = 'courseYear']").val(courseYear);
-            //     $("input[name = 'address']").val(address);
-            //     $("input[name = 'email']").val(email);
-
-
-
-            // });
-
-
+            //update
+            $('body').on('click', '#btnEdit', function () {
+                save(1);
+            })
 
         });
     </script>
