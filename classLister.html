@@ -12,15 +12,14 @@
 <body>
     <div class="container tblClassList">
         <h1>Class List</h1>
-        <button id="btnCreateStudent" type="button" class="btn btn-success btn-lg" style="float:right;margin:10px;">Create Student</button>
+        <button id="btnCreateStudent" type="button" class="btn btn-success btn-lg" style="float:right;margin:10px;">Create
+            Student</button>
         <table class="table table-hover data-table">
             <thead class="thead-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Course And Year</th>
-                    <th>Action</th>
-                </tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Course And Year</th>
+                <th>Action</th>
             </thead>
             <tbody>
             </tbody>
@@ -49,19 +48,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        //saveFunction
-        function save(param) {
-            if (param == 0) {
-                console.log("0")
-            }
-
-            else {
-                console.log("1")
-            }
-        }
-    </script>
-    <script>
         $(document).ready(function () {
+            var update = false;
+            var ID = 1;
+
 
             //hideForm
             $('.form').hide();
@@ -78,28 +68,47 @@
                 $('.tblClassList').show();
             });
 
-            function save(params) {
-                if(params == 1){
-
-                }
-                else{
-
-                }
-            }
 
             //saveBtn
-        $('form').on('click', '#btnSave', function(){
-            addRow();
-        });
+            $('form').submit(function (e) {
+                e.preventDefault();
+                if (!update) {
+                    var name = $("input[name = 'name']").val();
+                    var courseYear = $("input[name = 'courseYear']").val();
+                    var address = $("input[name = 'address']").val();
+                    var email = $("input[name = 'email']").val();
 
-            //createStudent
-            $('body').on('click', '#btnCreateStudent', function () {
-                save(0);
+                    $('tbody').append(
+                        "<tr d-id = '" + ID + "' d-name = '" + name + "' d-courseYear = '" +
+                        courseYear + "' d-address = '" + address + "' d-email = '" + email + "'>" +
+                        "<td>" + ID + "</td>" +
+                        "<td>" + name + "</td>" +
+                        "<td>" + courseYear + "</td>" +
+                        "<td><button  class='btn btn-info btnEdit'>Update</button><button class='btn btn-danger btnDelete'>Delete</button></td>" +
+                        "</tr>"
+
+                    )
+
+                    $('input').val(null);
+                    ID++;
+                    var id = $("input[name = 'id']").val("ID Number: " + (ID));
+                    $('.form').hide();
+                    $('.tblClassList').show();
+                }
+                else {
+                    alert('update')
+                }
             });
 
             //update
-            $('body').on('click', '#btnEdit', function () {
-                save(1);
+            $('body').on('click', '.btnEdit', function () {
+                update = true;
+                save();
+            })
+
+            //delete
+            $('body').on('click', '.btnDelete', function () {
+                $(this).closest('tr').remove();
             })
 
         });
