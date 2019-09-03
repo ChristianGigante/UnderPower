@@ -32,7 +32,7 @@
                 <h1>Fill-up Form</h1>
                 <hr>
                 <form>
-                    <input type="text" class="form-control" name="id" value="ID Number: " readonly>
+                    <input type="text" class="form-control" name="id" value="ID Number: 1" readonly>
                     Name : <input type="text" class="form-control" name="name" placeholder="Name" required="">
                     Course and Year : <input type="text" class="form-control" name="courseYear" placeholder="Course and Year"
                         required="">
@@ -51,21 +51,32 @@
         $(document).ready(function () {
             var update = false;
             var ID = 1;
+            var tempID = 0;
 
 
             //hideForm
             $('.form').hide();
 
-            //ClassListToFormView
-            $("button").click(function () {
+            function toForm() {
                 $('.tblClassList').hide();
                 $(".form").show();
+            }
+
+            function toTbl() {
+                $('.tblClassList').show();
+                $(".form").hide();
+            }
+
+            //ClassListToFormView
+            $("button").click(function () {
+                toForm();
             });
 
             //cancelBtn
             $(".cancel").click(function () {
-                $(".form").hide();
-                $('.tblClassList').show();
+                toTbl();
+                $('input').val(null);
+                var id = $("input[name = 'id']").val("ID Number: " + (ID));
             });
 
 
@@ -92,18 +103,50 @@
                     $('input').val(null);
                     ID++;
                     var id = $("input[name = 'id']").val("ID Number: " + (ID));
-                    $('.form').hide();
-                    $('.tblClassList').show();
+                    toTbl();
                 }
                 else {
-                    alert('update')
+
+                    //var currentRow = $('tbody').find('tr').attr('d-id').val($("input[name='id']").val());
+                    var name = $("input[name = 'name']").val();
+                    var courseYear = $("input[name = 'courseYear']").val();
+                    var address = $("input[name = 'address']").val();
+                    var email = $("input[name = 'email']").val();
+                    $(currentRow).replaceWith(
+                        "<tr d-id = '" + currentRow + "' d-name = '" + name + "' d-courseYear = '" +
+                        courseYear + "' d-address = '" + address + "' d-email = '" + email + "'>" +
+                        "<td>" + ID + "</td>" +
+                        "<td>" + name + "</td>" +
+                        "<td>" + courseYear + "</td>" +
+                        "<td><button  class='btn btn-info btnEdit'>Update</button><button class='btn btn-danger btnDelete'>Delete</button></td>" +
+                        "</tr>"
+
+                    )
+
+                    $('input').val(null);
+                    ID++;
+                    var id = $("input[name = 'id']").val("ID Number: " + (ID));
+                    update = false;
+                    toTbl();
+
                 }
             });
 
             //update
             $('body').on('click', '.btnEdit', function () {
                 update = true;
-                save();
+                var id = $(this).parents("tr").attr('d-id');
+                var name = $(this).parents("tr").attr('d-name');
+                var courseYear = $(this).parents("tr").attr('d-courseYear');
+                var address = $(this).parents("tr").attr('d-address');
+                var email = $(this).parents("tr").attr('d-email');
+
+                $("input[name = 'id']").val("ID Number: " + (id));
+                $("input[name = 'name']").val(name);
+                $("input[name = 'courseYear']").val(courseYear);
+                $("input[name = 'address']").val(address);
+                $("input[name = 'email']").val(email);
+                toForm();
             })
 
             //delete
